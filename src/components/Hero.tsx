@@ -183,15 +183,15 @@ const Globe = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number
     }, []);
 
     // Connection arcs from Bengaluru
-    const arcs = useMemo(() => {
-        const arcData: THREE.BufferGeometry[] = [];
+    const arcLines = useMemo(() => {
         const connections = [
             [13, 77, 40, -74],
             [13, 77, 51, -0.1],
             [13, 77, 35, 139],
             [13, 77, 37, -122],
         ];
-        connections.forEach(([lat1, lng1, lat2, lng2]) => {
+        const mat = new THREE.LineBasicMaterial({ color: "#fbbf24", transparent: true, opacity: 0.5 });
+        return connections.map(([lat1, lng1, lat2, lng2]) => {
             const points: THREE.Vector3[] = [];
             for (let t = 0; t <= 1; t += 0.015) {
                 const lat = lat1 + (lat2 - lat1) * t;
@@ -205,9 +205,9 @@ const Globe = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number
                     altitude * Math.sin(phi) * Math.sin(theta)
                 ));
             }
-            arcData.push(new THREE.BufferGeometry().setFromPoints(points));
+            const geo = new THREE.BufferGeometry().setFromPoints(points);
+            return new THREE.Line(geo, mat);
         });
-        return arcData;
     }, []);
 
     // Bengaluru marker
@@ -267,10 +267,8 @@ const Globe = ({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number
                 </Sphere>
 
                 {/* Connection arcs */}
-                {arcs.map((geo, i) => (
-                    <line key={`arc-${i}`} geometry={geo}>
-                        <lineBasicMaterial color="#fbbf24" transparent opacity={0.5} />
-                    </line>
+                {arcLines.map((line, i) => (
+                    <primitive key={`arc-${i}`} object={line} />
                 ))}
 
                 {/* Bengaluru marker */}
