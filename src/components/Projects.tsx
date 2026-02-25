@@ -1,9 +1,32 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Folder, Bot, Brain, MessageSquare, BookOpen, MapPin, CalendarCheck } from "lucide-react";
+import { ExternalLink, Github, Folder, Bot, Brain, MessageSquare, BookOpen, MapPin, CalendarCheck, Mic } from "lucide-react";
 
-const projects = [
+type Project = {
+    title: string;
+    description: string;
+    tech: string[];
+    link: string;
+    github: string;
+    githubBackend?: string;
+    icon: React.ReactNode;
+    color: string;
+    category: string;
+};
+
+const projects: Project[] = [
+    {
+        title: "TalkRooms — Voice Chat",
+        description: "Real-time communication application with dynamic talk rooms, voice chat capabilities, and secure user authorization.",
+        tech: ["MERN", "Socket.io", "Tailwind CSS", "WebRTC"],
+        link: "https://talkrooms200.vercel.app",
+        github: "https://github.com/phaneesh29/talkrooms200",
+        icon: <Mic className="w-6 h-6 text-white" />,
+        color: "from-blue-500 to-indigo-600",
+        category: "Full-Stack / Real-time"
+    },
     {
         title: "Sales Genie — AI SDR Assistant",
         description: "AI-powered Sales Development Rep that automates lead research, personalized email drafting, and follow-up sequences. Built during Yukti Manthan AI Hackathon.",
@@ -17,8 +40,8 @@ const projects = [
     {
         title: "Work Planner — Task Manager",
         description: "Production-ready task management app with JWT auth, automated email reminders via cron jobs, and a modern dark-themed dashboard.",
-        tech: ["Next.js 14", "MongoDB", "JWT", "Nodemailer", "Cron"],
-        link: "#",
+        tech: ["Next.js", "MongoDB", "JWT", "Nodemailer", "Cron"],
+        link: "https://work-planner-theta.vercel.app",
         github: "https://github.com/phaneesh29/work-planner",
         icon: <CalendarCheck className="w-6 h-6 text-white" />,
         color: "from-amber-500 to-orange-600",
@@ -30,6 +53,7 @@ const projects = [
         tech: ["React", "JavaScript", "RBAC", "REST API"],
         link: "#",
         github: "https://github.com/phaneesh29/leanify-client-web",
+        githubBackend: "https://github.com/phaneesh29/learnify-lms-backend",
         icon: <BookOpen className="w-6 h-6 text-white" />,
         color: "from-emerald-500 to-teal-500",
         category: "Full-Stack / EdTech"
@@ -92,22 +116,27 @@ export default function Projects() {
                                 className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-1"
                             >
                                 {/* Gradient Overlay */}
-                                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none`} />
 
                                 {/* Top gradient bar */}
-                                <div className={`h-1 w-full bg-gradient-to-r ${project.color}`} />
+                                <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${project.color} pointer-events-none`} />
 
-                                <div className="p-6 h-full flex flex-col">
+                                <div className="relative z-10 p-6 h-full flex flex-col">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className={`p-3 bg-gradient-to-br ${project.color} rounded-lg opacity-80`}>
                                             {project.icon}
                                         </div>
                                         <div className="flex gap-2">
-                                            <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">
+                                            <a href={project.github} title={project.githubBackend ? "Client Repository" : "Source Code"} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">
                                                 <Github size={20} />
                                             </a>
+                                            {project.githubBackend && (
+                                                <a href={project.githubBackend} title="Backend Repository" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">
+                                                    <Github size={20} />
+                                                </a>
+                                            )}
                                             {project.link !== "#" && (
-                                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">
+                                                <a href={project.link} title="Live Preview" target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white">
                                                     <ExternalLink size={20} />
                                                 </a>
                                             )}

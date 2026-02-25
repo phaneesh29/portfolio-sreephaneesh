@@ -15,10 +15,10 @@ import {
 export default function About() {
     const skills = [
         { name: "Languages", icon: <Code2 className="text-blue-400" />, items: ["C", "Python", "JavaScript", "TypeScript"] },
-        { name: "Frontend", icon: <Layout className="text-pink-400" />, items: ["ReactJS", "Next.js", "Tailwind CSS", "HTML/CSS"] },
-        { name: "Backend", icon: <Server className="text-green-400" />, items: ["NodeJS", "Express", "Socket.io"] },
+        { name: "Frontend", icon: <Layout className="text-pink-400" />, items: ["ReactJS", "Next.js", "Tailwind CSS", "HTML/CSS", "Framer Motion"] },
+        { name: "Backend", icon: <Server className="text-green-400" />, items: ["NodeJS", "Express", "Socket.io", "WebSockets", "WebRTC"] },
         { name: "Database", icon: <Database className="text-yellow-400" />, items: ["MongoDB", "MySQL", "PostgreSQL", "SQLite"] },
-        { name: "Tools", icon: <Terminal className="text-purple-400" />, items: ["Git", "Linux", "VS Code", "Vercel"] },
+        { name: "Tools", icon: <Terminal className="text-purple-400" />, items: ["Git", "Linux", "VS Code", "Vercel", "Gemini API"] },
         { name: "Core", icon: <Cpu className="text-red-400" />, items: ["DSA", "OOPs", "OS", "CN"] },
     ];
 
